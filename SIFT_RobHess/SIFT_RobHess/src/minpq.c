@@ -101,7 +101,7 @@ int minpq_insert( struct min_pq* min_pq, void* data, int key )
   Returns the element of a minimizing priority queue with the smallest key
   without removing it from the queue.
   
-  @param min_pq a minimizing priority queue
+  @param min_pq a minimizing priority queue 最小优先级队列，即knn中距离最小的前几个
   
   @return Returns the element of \a min_pq with the smallest key or NULL
     if \a min_pq is empty
@@ -113,7 +113,7 @@ void* minpq_get_min( struct min_pq* min_pq )
       fprintf( stderr, "Warning: PQ empty, %s line %d\n", __FILE__, __LINE__ );
       return NULL;
     }
-  return min_pq->pq_array[0].data;
+  return min_pq->pq_array[0].data;//队列元素：data指针和int型key key应该指的是距离，data指的是高维数据
 }
 
 
@@ -121,7 +121,8 @@ void* minpq_get_min( struct min_pq* min_pq )
 /*
   Removes and returns the element of a minimizing priority queue with the
   smallest key.
-  
+  K个最小近邻的查找：大顶堆优先级队列
+  https://blog.csdn.net/v_july_v/article/details/8203674
   @param min_pq a minimizing priority queue
   
   @return Returns the element of \a min_pq with the smallest key of NULL
@@ -136,8 +137,8 @@ void* minpq_extract_min( struct min_pq* min_pq )
       fprintf( stderr, "Warning: PQ empty, %s line %d\n", __FILE__, __LINE__ );
       return NULL;
     }
-  data = min_pq->pq_array[0].data;
-  min_pq->n--;
+  data = min_pq->pq_array[0].data;//root of tree 
+  min_pq->n--;    //0  ？？？
   min_pq->pq_array[0] = min_pq->pq_array[min_pq->n];
   restore_minpq_order( min_pq->pq_array, 0, min_pq->n );
 
@@ -198,18 +199,18 @@ static void decrease_pq_node_key( struct pq_node* pq_array, int i, int key )
 
 /*
   Recursively restores correct priority queue order to a minimizing pq array
-
+  递归地重新存储正确的优先级队列
   @param pq_array a minimizing priority queue array
   @param i index at which to start reordering
   @param n number of elements in \a pq_array
 */
-static void restore_minpq_order( struct pq_node* pq_array, int i, int n )
+static void restore_minpq_order( struct pq_node* pq_array, int i, int n )//i和0都取0
 {
   struct pq_node tmp;
   int l, r, min = i;
 
-  l = left( i );
-  r = right( i );
+  l = left( i );//2*i+1,???????????? 
+  r = right( i );//2*i+2,???????????? 
   if( l < n )
     if( pq_array[l].key < pq_array[i].key )
       min = l;

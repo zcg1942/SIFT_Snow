@@ -34,8 +34,9 @@ struct pq_node
 struct min_pq
 {
   struct pq_node* pq_array;    /* array containing priority queue */
-  int nallocd;                 /* number of elements allocated */
-  int n;                       /**< number of elements in pq */
+  int nallocd;                 /* number of elements allocated */ //元素分配的数目
+  int n;                       /**< number of elements in pq */ //pq中元素个数
+
 };
 
 

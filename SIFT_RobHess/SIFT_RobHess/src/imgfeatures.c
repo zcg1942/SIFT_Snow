@@ -147,6 +147,7 @@ void draw_features( IplImage* img, struct feature* feat, int n )
 
 /*
   Calculates the squared Euclidian distance between two feature descriptors.
+  计算两个特征点描述子之间的欧式距离
   
   @param f1 first feature
   @param f2 second feature
@@ -160,15 +161,15 @@ double descr_dist_sq( struct feature* f1, struct feature* f2 )
   double* descr1, * descr2;
   int i, d;
 
-  d = f1->d;
+  d = f1->d;//d是描述子的长度
   if( f2->d != d )
     return DBL_MAX;
-  descr1 = f1->descr;
+  descr1 = f1->descr;//double型的描述子
   descr2 = f2->descr;
 
   for( i = 0; i < d; i++ )
     {
-      diff = descr1[i] - descr2[i];
+      diff = descr1[i] - descr2[i];//描述子每一维的差
       dsq += diff*diff;
     }
   return dsq;

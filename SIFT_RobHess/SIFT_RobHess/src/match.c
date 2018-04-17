@@ -87,15 +87,15 @@ int main( int argc, char** argv )
   for( i = 0; i < n1; i++ )//对图1的特征点遍历，在图2的kd树中找knn
     {
       feat = feat1 + i;
-      k = kdtree_bbf_knn( kd_root, feat, 2, &nbrs, KDTREE_BBF_MAX_NN_CHKS );
-      if( k == 2 )
+      k = kdtree_bbf_knn( kd_root, feat, 2, &nbrs, KDTREE_BBF_MAX_NN_CHKS );//近邻数是2
+      if( k == 2 )//返回了两个nbars
 	{
 	  d0 = descr_dist_sq( feat, nbrs[0] );
 	  d1 = descr_dist_sq( feat, nbrs[1] );
-	  if( d0 < d1 * NN_SQ_DIST_RATIO_THR )
+	  if( d0 < d1 * NN_SQ_DIST_RATIO_THR )//阈值为0.49
 	    {
 	      pt1 = cvPoint( cvRound( feat->x ), cvRound( feat->y ) );
-	      pt2 = cvPoint( cvRound( nbrs[0]->x ), cvRound( nbrs[0]->y ) );
+	      pt2 = cvPoint( cvRound( nbrs[0]->x ), cvRound( nbrs[0]->y ) );//最近邻小于次近邻的0.49时，把最近邻作为对应点
 	      pt2.y += img1->height;
 	      cvLine( stacked, pt1, pt2, CV_RGB(255,0,255), 1, 8, 0 );
 	      m++;
