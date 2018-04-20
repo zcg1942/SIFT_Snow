@@ -23,7 +23,7 @@ extern "C" {
 	*/
 enum feature_type
   {
-    FEATURE_OXFD,
+    FEATURE_OXFD,//用0表示？
     FEATURE_LOWE,
   };
 
@@ -54,26 +54,38 @@ enum feature_match_type
    x, y, a, b, c represent the affine region around the feature:
 
    a(x-u)(x-u) + 2b(x-u)(y-v) + c(y-v)(y-v) = 1
+   /*特征点结构体
+   此结构体可存储2中类型的特征点：
+   FEATURE_OXFD表示是牛津大学VGG提供的源码中的特征点格式，
+   FEATURE_LOWE表示是David.Lowe提供的源码中的特征点格式。
+   如果是OXFD类型的特征点，结构体中的a,b,c成员描述了特征点周围的仿射区域(椭圆的参数)，即邻域。
+   如果是LOWE类型的特征点，结构体中的scl和ori成员描述了特征点的大小和方向。
+   fwd_match，bck_match，mdl_match一般同时只有一个起作用，用来指明此特征点对应的匹配点
+   https://blog.csdn.net/masibuaa/article/details/9204157
+   
 */
 struct feature
 {
   double x;                      /**< x coord */
   double y;                      /**< y coord */
-  double a;                      /**< Oxford-type affine region parameter */
+  double a;                      /**< Oxford-type affine region parameter */ /**< Oxford-type affine region parameter */ //OXFD特征点中椭圆的参数
   double b;                      /**< Oxford-type affine region parameter */
   double c;                      /**< Oxford-type affine region parameter */
   double scl;                    /**< scale of a Lowe-style feature */
   double ori;                    /**< orientation of a Lowe-style feature */
   int d;                         /**< descriptor length */
-  double descr[FEATURE_MAX_D];   /**< descriptor */
-  int type;                      /**< feature type, OXFD or LOWE */
+  double descr[FEATURE_MAX_D];   /**< descriptor */ /**< descriptor */ //128维的特征描述子，即一个double数组  
+  int type;                      /**< feature type, OXFD or LOWE *///特征点描述子有两种格式
   int category;                  /**< all-purpose feature category */
   struct feature* fwd_match;     /**< matching feature from forward image */
   struct feature* bck_match;     /**< matching feature from backmward image */
   struct feature* mdl_match;     /**< matching feature from model */
   CvPoint2D64f img_pt;           /**< location in image */
   CvPoint2D64f mdl_pt;           /**< location in model */
-  void* feature_data;            /**< user-definable data */
+  void* feature_data;            /**< user-definable data *///用户定义的数据:  
+                                                               //在SIFT极值点检测中，是detection_data结构的指针  
+                                                               //在k-d树搜索中，是bbf_data结构的指针  
+                                                               //在RANSAC算法中，是ransac_data结构的指针
 };
 
 

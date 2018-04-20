@@ -119,7 +119,7 @@ int _sift_features( IplImage* img, struct feature** feat, int intvls,
   IplImage* init_img;
   IplImage*** gauss_pyr, *** dog_pyr;
   CvMemStorage* storage;
-  CvSeq* features;
+  CvSeq* features;//注意到这里是复数，代表一幅图像所有的特征点
   int octvs, i, n = 0;
   
   /* check arguments */
@@ -143,7 +143,7 @@ int _sift_features( IplImage* img, struct feature** feat, int intvls,
 	  calc_feature_scales(features, sigma, intvls);
   /* 算法第五步，调整图像的大小 */
   if( img_dbl )
-    adjust_for_img_dbl( features );
+    adjust_for_img_dbl( features );//转换为struct feature类型
   /* 算法第六步，计算特征点的主要方向 */
   calc_feature_oris( features, gauss_pyr );
   /* 算法第七步，计算描述子，其中包括计算二维方向直方图并转换直方图为特征描述子 */
@@ -154,7 +154,7 @@ int _sift_features( IplImage* img, struct feature** feat, int intvls,
   cvSeqSort( features, (CvCmpFunc)feature_cmp, NULL );
   n = features->total;
   *feat = calloc( n, sizeof(struct feature) );
-  *feat = cvCvtSeqToArray( features, *feat, CV_WHOLE_SEQ );
+  *feat = cvCvtSeqToArray( features, *feat, CV_WHOLE_SEQ );//将所有特征点分别提取出来成数列
   for( i = 0; i < n; i++ )
     {
       free( (*feat)[i].feature_data );

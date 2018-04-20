@@ -10,6 +10,8 @@
 #include "imgfeatures.h"
 
 #include <cxcore.h>
+#include <opencv2\ml\ml.hpp>  
+//#include<iostream>  
 
 static int import_oxfd_features( char*, struct feature** );
 static int export_oxfd_features( char*, struct feature*, int );
@@ -48,7 +50,7 @@ int import_features( char* filename, int type, struct feature** feat )
 
   switch( type )
     {
-    case FEATURE_OXFD:
+    case FEATURE_OXFD://case 0
       n = import_oxfd_features( filename, feat );
       break;
     case FEATURE_LOWE:
@@ -413,7 +415,7 @@ static int import_lowe_features( char* filename, struct feature** features )
       return -1;
     }
 
-  /* read number of features and dimension */
+  /* read number of features and dimension *///读取特征点数目和维数
   if( fscanf( file, " %d %d ", &n, &d ) != 2 )
     {
       fprintf( stderr, "Warning: file read error, %s, line %d\n",
@@ -430,7 +432,7 @@ static int import_lowe_features( char* filename, struct feature** features )
   f = calloc( n, sizeof(struct feature) );
   for( i = 0; i < n; i++ )
     {
-      /* read affine region parameters */
+      /* read affine region parameters *///仿射区域参数坐标值，尺度，方向
       if( fscanf( file, " %lf %lf %lf %lf ", &y, &x, &s, &o ) != 4 )
 	{
 	  fprintf( stderr, "Warning: error reading feature #%d, %s, line %d\n",
@@ -445,18 +447,48 @@ static int import_lowe_features( char* filename, struct feature** features )
       f[i].d = d;
       f[i].type = FEATURE_LOWE;
 
-      /* read descriptor */
+      /* read descriptor */ //128维数据
       for( j = 0; j < d; j++ )
 	{
-	  if( ! fscanf( file, " %lf ", &dv ) )
+	  if( ! fscanf( file, " %lf ", &dv ) )//fscanf遇到空格和换行时结束，所以每次读一个数
 	    {
 	      fprintf( stderr, "Warning: error reading feature descriptor" \
 		       " #%d, %s, line %d\n", i+1, __FILE__, __LINE__ );
 	      free( f );
 	      return -1;
 	    }
-	  f[i].descr[j] = dv;
+	  f[i].descr[j] = dv;//descr是一个double型的数组
 	}
+	  CvMat *Vector1;
+	     CvMat *AvgVector;
+	      CvMat *EigenValue_Row;
+	      CvMat *EigenVector;
+		  CvMat *result;
+	  Vector1 = cvCreateMat(8, 16, CV_32FC1);
+	      cvSetData(Vector1, f[i].descr, Vector1->step);  //给vector1赋值（样本矩阵）
+	      AvgVector = cvCreateMat(1, 16, CV_32FC1);  //每列均值，向量
+		  //计算协方差A=C'*C/n，大小为n*n，n是矩阵元素个数
+		  //协方差是实对称矩阵，共有n个特征值特征向量
+	      EigenValue_Row = cvCreateMat(1, 8, CV_32FC1);  //每个数表示一个特征值，5是选取的样本数和维度中较小的数
+	      EigenVector = cvCreateMat(8, 16, CV_32FC1);  //每一行表示一个特征向量，5是选取的样本数和维度中较小的数
+		  result = cvCreateMat(8, 8, CV_32FC1);
+		      //PCA的实现函数
+		       cvCalcPCA(Vector1, AvgVector, EigenValue_Row, EigenVector, CV_PCA_DATA_AS_ROW);
+			   cvProjectPCA(Vector1, AvgVector, EigenVector, result);
+			   for (int ii = 0; ii <(*result).cols; ii++)//防止和特征点遍历的i重合
+			   {
+				   for (int j = 0; j <(*result).rows;j++)
+					   f[i].descr[ii*(*result).cols+j] = cvGetReal2D(result, ii, j);
+			   }
+		   
+		  //PCA pca(DataMat, noArray(), CV_PCA_DATA_AS_ROW);
+	  //-----------------------------OpenCV中的PCA--------------------------------//  
+	  //CvMat *pca_input = cvCreateMat(num, dim, CV_32FC1);               // 输入  
+	  //CvMat *pca_avg = cvCreateMat(1, dim, CV_32FC1);                 // 平均值   
+	  //CvMat *pca_eigenvalue = cvCreateMat(1, std::min(num, dim), CV_32FC1);  // 特征值    
+	  //CvMat *pca_eigenvector = cvCreateMat(std::min(num, dim), dim, CV_32FC1);// 特征向量  
+	  //CvMat *pca_eigenvector_T = cvCreateMat(dim, std::min(num, dim), CV_32FC1); // 特征向量  
+	  //CvMat *pca_output = cvCreateMat(num, pca_dim, CV_32FC1);            // 输出  
 
       f[i].a = f[i].b = f[i].c = 0;
       f[i].category = 0;

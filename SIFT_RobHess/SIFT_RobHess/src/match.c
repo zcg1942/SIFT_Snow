@@ -24,6 +24,8 @@
 #include <math.h> 
 #include <getpsnr.h>
 #include<time.h>
+#include <stdio.h>     
+#include <unistd.h>  
 //using namespace cv;c语言没有命名空间？
 
 /* the maximum number of keypoint NN candidates to check during BBF search */
@@ -64,7 +66,7 @@ int main( int argc, char** argv )
   fprintf( stderr, "Finding features in %s...\n", argv[1] );
   IplImage* down1 = cvCreateImage(cvSize(img1->width / 2, img1->height / 2), img1->depth, img1->nChannels);
   cvPyrDown(img1, down1, 7);//filter=7 目前只支持CV_GAUSSIAN_5x5
-  n1 = sift_features( img1, &feat1 );
+  n1 = sift_features( img1, &feat1 );//第二个参数是指针的地址
   n3 = sift_features(down1, &feat3);//下采样的检测特征点
   fprintf( stderr, "Finding features in %s...\n", argv[2] );
   n2 = sift_features( img2, &feat2 );
@@ -82,6 +84,32 @@ int main( int argc, char** argv )
 	  fprintf(stderr, "Found %d features in img2.\n", n2);
 	  //cvWaitKey(0);
   }
+  /*利用PCA对描述子进行降维
+  feat1,feat2是指向struct feature的指针 ，feature结构体中包含了一个128维的double数组
+  但一幅图像上千个特征点，它们的描述子都存放在哪里
+  把128维数据拿出来降维还是直接对feature结构降维?
+  一种思路是对描述子降维，一种是对特征点降维
+  回复u010890209：源码里就有将特征描述导出到文件的函数：export_features
+  先导出，PCA后再导入，因为之后的kd树的构建是对feat操作的
+  */
+  //char* savepath = new char[100];
+  char savepath1[80]="E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1.txt";
+  char savepath2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2.txt";
+  //c语言中\是转义字符，所以最好用\\
+  //_getcwd(savepath1, sizeof(savepath));//获取当前路径，将路径用fopen打开，返回file
+  export_features(savepath1, feat1, n1);//保存的格式取决于 feat[0].type;
+  export_features(savepath2, feat2, n2);//应该就是按照lowe格式保存的
+  //导出后再PCA分析再导入，计算耗时只需计算比较匹配时间，不算导入导出的时间
+  
+  import_features(savepath1, 1, feat1);//1代表Lowe格式
+  import_features(savepath2, 1, feat2);
+  char savepath11[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1pca.txt";
+  char savepath22[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2pca.txt";
+  export_features(savepath11, feat1, n1);//保存的格式取决于 feat[0].type;
+  export_features(savepath22, feat2, n2);//应该就是按照lowe格式保存的
+
+  
+
   fprintf( stderr, "Building kd tree...\n" );
   kd_root = kdtree_build( feat2, n2 );//只对图2构造kd树
   for( i = 0; i < n1; i++ )//对图1的特征点遍历，在图2的kd树中找knn
