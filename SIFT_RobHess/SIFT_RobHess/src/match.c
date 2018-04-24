@@ -24,10 +24,6 @@
 #include <math.h> 
 #include <getpsnr.h>
 #include<time.h>
-#include <stdio.h>     
-#include <unistd.h>  
-#include <string.h>
-//#include <memory.h>
 //using namespace cv;c语言没有命名空间？
 
 /* the maximum number of keypoint NN candidates to check during BBF search */
@@ -48,7 +44,6 @@ int main( int argc, char** argv )
 	start = clock();
   IplImage* img1, * img2, * stacked;
   struct feature* feat1, * feat2, * feat,* feat3;
- 
   struct feature** nbrs;
   struct kd_node* kd_root;
   CvPoint pt1, pt2;
@@ -65,69 +60,33 @@ int main( int argc, char** argv )
   if( ! img2 )
     fatal_error( "unable to load image from %s", argv[2] );
   stacked = stack_imgs( img1, img2 );
-  //检测特征点
-  fprintf( stderr, "Finding features in %s...\n", argv[1] );
-  IplImage* down1 = cvCreateImage(cvSize(img1->width / 2, img1->height / 2), img1->depth, img1->nChannels);
-  cvPyrDown(img1, down1, 7);//filter=7 目前只支持CV_GAUSSIAN_5x5
-  ////动态分配描述子中数组
-  ////feat1 = NULL;//初始化，指针指向NULL NULL只表示该指针指向NULL，不指向内存中的任意地址，不涉及其中具体取值。
-  ////feat2 = NULL;
-  //feat1 = (struct feature*)(malloc(sizeof(struct feature)));
-  //feat2 = (struct feature*)(malloc(sizeof(struct feature)));
-  ////feat1->descr = NULL;//发生了中断
-  ////feat2->descr = NULL;
- 
-
-  //feat1->descr = (double *)malloc(sizeof(double)*FEATURE_MAX_D);
-  //feat2->descr = (double *)malloc(sizeof(double)*FEATURE_MAX_D);
-  ////memset(feat1, 0, sizeof(struct feature));//对起始地址之后长度为count的都赋值为Val
-  ////memset(feat2, 0, sizeof(struct feature));//对起始地址之后长度为count的都赋值为Val
-
-  n1 = sift_features( img1, &feat1 );//第二个参数是指针的地址
-  n3 = sift_features(down1, &feat3);//下采样的检测特征点
-  fprintf( stderr, "Finding features in %s...\n", argv[2] );
-  n2 = sift_features( img2, &feat2 );
-  //借用siftfeat中的几句画特征点
-  if (display)
-  {
+  n1 = 116; n2 = 95;//特征点数量 
+  ////检测特征点
+  //fprintf( stderr, "Finding features in %s...\n", argv[1] );
+  //IplImage* down1 = cvCreateImage(cvSize(img1->width / 2, img1->height / 2), img1->depth, img1->nChannels);
+  //cvPyrDown(img1, down1, 7);//filter=7 目前只支持CV_GAUSSIAN_5x5
+  //n1 = sift_features( img1, &feat1 );
+  //n3 = sift_features(down1, &feat3);//下采样的检测特征点
+  //fprintf( stderr, "Finding features in %s...\n", argv[2] );
+  //n2 = sift_features( img2, &feat2 );
+  ////借用siftfeat中的几句画特征点
+  //if (display)
+  //{
 	
-	  draw_features(img1, feat1, n1);
-	  draw_features(img2, feat2, n2);
-	  display_big_img(img1, argv[1]);
-	  display_big_img(img2, argv[2]);
-	  cvShowImage("downsample", down1);
-	 
-	  fprintf(stderr, "Found %d features in img1.\n", n1);
-	  fprintf(stderr, "Found %d features in img2.\n", n2);
-	  //cvWaitKey(0);
-  }
-  /*利用PCA对描述子进行降维
-  feat1,feat2是指向struct feature的指针 ，feature结构体中包含了一个128维的double数组
-  但一幅图像上千个特征点，它们的描述子都存放在哪里
-  把128维数据拿出来降维还是直接对feature结构降维?
-  一种思路是对描述子降维，一种是对特征点降维
-  回复u010890209：源码里就有将特征描述导出到文件的函数：export_features
-  先导出，PCA后再导入，因为之后的kd树的构建是对feat操作的
-  */
-  //char* savepath = new char[100];
-  char savepath1[80]="E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1.txt";
-  char savepath2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2.txt";
-  //c语言中\是转义字符，所以最好用\\
-  //_getcwd(savepath1, sizeof(savepath));//获取当前路径，将路径用fopen打开，返回file
-  export_features(savepath1, feat1, n1);//保存的格式取决于 feat[0].type;
-  export_features(savepath2, feat2, n2);//应该就是按照lowe格式保存的
-  //导出后再PCA分析再导入，计算耗时只需计算比较匹配时间，不算导入导出的时间
-  struct feature** feat1_pca=&feat1, **feat2_pca=&feat2;//注意import的第三个参数是指针的指针 sift_features函数第二个参数也是
-  import_features(savepath1, 1, feat1_pca);//1代表Lowe格式
-  import_features(savepath2, 1, feat2_pca);//import过程中进行降维
+	 // draw_features(img1, feat1, n1);
+	 // draw_features(img2, feat2, n2);
+	 // display_big_img(img1, argv[1]);
+	 // display_big_img(img2, argv[2]);
+	 // cvShowImage("downsample", down1);
+	 //
+	 // fprintf(stderr, "Found %d features in img1.\n", n1);
+	 // fprintf(stderr, "Found %d features in img2.\n", n2);
+	 // //cvWaitKey(0);
+  //}
   char savepath11[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1pca.txt";
   char savepath22[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2pca.txt";
-
-  //再导出一次，希望对比降维前后的特征点lowe格式
-  export_features(savepath11, *feat1_pca, n1);//保存的格式取决于 feat[0].type;
-  export_features(savepath22, *feat2_pca, n2);//应该就是按照lowe格式保存的
-
-  
+  import_features(savepath11,1,&feat1);
+  import_features(savepath22,1, &feat2);
 
   fprintf( stderr, "Building kd tree...\n" );
   kd_root = kdtree_build( feat2, n2 );//只对图2构造kd树
