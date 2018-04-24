@@ -74,7 +74,10 @@ struct feature
   double scl;                    /**< scale of a Lowe-style feature */
   double ori;                    /**< orientation of a Lowe-style feature */
   int d;                         /**< descriptor length */
-  double descr[FEATURE_MAX_D];   /**< descriptor */ /**< descriptor */ //128维的特征描述子，即一个double数组  
+  double descr[FEATURE_MAX_D];/**< descriptor */ /**< descriptor */ //128维的特征描述子，即一个double数组
+  double descr_pca[64];
+ // double *descr;
+  int pca;//通过switch判断，如果想计算pca之后的配准就用 descr_pca[64]数组
   int type;                      /**< feature type, OXFD or LOWE *///特征点描述子有两种格式
   int category;                  /**< all-purpose feature category */
   struct feature* fwd_match;     /**< matching feature from forward image */

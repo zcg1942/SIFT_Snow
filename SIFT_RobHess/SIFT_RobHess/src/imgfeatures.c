@@ -429,7 +429,7 @@ static int import_lowe_features( char* filename, struct feature** features )
       return -1;
     }
 
-  f = calloc( n, sizeof(struct feature) );
+  f = calloc( n, sizeof(struct feature) );//动态分配n个长度为特征点结构大小的空间
   for( i = 0; i < n; i++ )
     {
       /* read affine region parameters *///仿射区域参数坐标值，尺度，方向
@@ -446,6 +446,7 @@ static int import_lowe_features( char* filename, struct feature** features )
       f[i].ori = o;
       f[i].d = d;
       f[i].type = FEATURE_LOWE;
+	  f[i].pca = 1;//pca之后就把这个标志位置1
 
       /* read descriptor */ //128维数据
       for( j = 0; j < d; j++ )
@@ -464,8 +465,8 @@ static int import_lowe_features( char* filename, struct feature** features )
 	      CvMat *EigenValue_Row;
 	      CvMat *EigenVector;
 		  CvMat *result;
-	  Vector1 = cvCreateMat(8, 16, CV_32FC1);
-	      cvSetData(Vector1, f[i].descr, Vector1->step);  //给vector1赋值（样本矩阵）
+	  Vector1 = cvCreateMat(8, 16, CV_32FC1);//double型数组放在float型mat中是否可行?
+	      cvSetData(Vector1, f[i].descr, Vector1->step);  //给vector1赋值（样本矩阵）,函数作用是把用户数据与arr头联系起来
 	      AvgVector = cvCreateMat(1, 16, CV_32FC1);  //每列均值，向量
 		  //计算协方差A=C'*C/n，大小为n*n，n是矩阵元素个数
 		  //协方差是实对称矩阵，共有n个特征值特征向量
@@ -475,10 +476,11 @@ static int import_lowe_features( char* filename, struct feature** features )
 		      //PCA的实现函数
 		       cvCalcPCA(Vector1, AvgVector, EigenValue_Row, EigenVector, CV_PCA_DATA_AS_ROW);
 			   cvProjectPCA(Vector1, AvgVector, EigenVector, result);
-			   for (int ii = 0; ii <(*result).cols; ii++)//防止和特征点遍历的i重合
+			   //f[i].d = 64;//改这个不管用，128维是宏实现的
+			   for (int ii = 0; ii < (*result).cols; ii++)//防止和特征点遍历的i重合
 			   {
-				   for (int j = 0; j <(*result).rows;j++)
-					   f[i].descr[ii*(*result).cols+j] = cvGetReal2D(result, ii, j);
+				   for (int j = 0; j < (*result).rows; j++)
+					   f[i].descr_pca[ii*((*result).cols) + j] = cvGetReal2D(result, ii, j);//降维之后只有64维了 descr确是128维，后面的64维仍然保留，应该改变数组大小		   
 			   }
 		   
 		  //PCA pca(DataMat, noArray(), CV_PCA_DATA_AS_ROW);
@@ -495,9 +497,10 @@ static int import_lowe_features( char* filename, struct feature** features )
       f[i].fwd_match = f[i].bck_match = f[i].mdl_match = NULL;
       f[i].mdl_pt.x = f[i].mdl_pt.y = -1;
       f[i].feature_data = NULL;
+	 
     }
 
-  if( fclose(file) )
+  if( fclose(file) )//如果流成功关闭，fclose 返回 0
     {
       fprintf( stderr, "Warning: file close error, %s, line %d\n",
 	       __FILE__, __LINE__ );
@@ -527,6 +530,7 @@ static int export_lowe_features( char* filename, struct feature* feat, int n )
 {
   FILE* file;
   int i, j, d;
+  int pca=0;
 
   if( n <= 0 )
     {
@@ -542,17 +546,38 @@ static int export_lowe_features( char* filename, struct feature* feat, int n )
     }
 
   d = feat[0].d;
+  pca = feat[0].pca;//检测是否是pca
   fprintf( file, "%d %d\n", n, d );
   for( i = 0; i < n; i++ )
     {
       fprintf( file, "%f %f %f %f", feat[i].y, feat[i].x,
 	       feat[i].scl, feat[i].ori );
-      for( j = 0; j < d; j++ )
-	{
+    
 	  /* write 20 descriptor values per line */
-	  if( j % 20 == 0 )
-	    fprintf( file, "\n" );
-	  fprintf( file, " %d", (int)(feat[i].descr[j]) );
+	
+	  switch (pca)
+	  {
+	  case 0:
+		  for (j = 0; j < d; j++)
+		  {
+			  if (j % 20 == 0)
+				  fprintf(file, "\n");
+			  fprintf(file, " %d", (int)(feat[i].descr[j]));
+		  }
+		  break;
+	  case 1:
+	  
+		  for (j = 0; j < 64; j++)
+		  {
+			  if (j % 20 == 0)
+				  fprintf(file, "\n");
+			  fprintf(file, " %d", (int)(feat[i].descr_pca[j]));//打印降维后的64维数据
+		  }
+		  break;
+	  default:
+		  return -1;
+	  
+
 	}
       fprintf( file, "\n" );
     }
