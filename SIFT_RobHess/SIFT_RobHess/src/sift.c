@@ -1264,7 +1264,6 @@ static void hist_to_descr( double*** hist, int d, int n, struct feature* feat )
     for( c = 0; c < d; c++ )
       for( o = 0; o < n; o++ )
 	feat->descr[k++] = hist[r][c][o];
-	//*(feat->descr+(k++)) = hist[r][c][o];//用指针实现访问数组因素，还是中断
 
   feat->d = k;
   normalize_descr( feat );

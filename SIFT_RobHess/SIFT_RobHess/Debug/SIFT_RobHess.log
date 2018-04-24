@@ -1,9 +1,35 @@
-﻿生成启动时间为 2018/1/18 17:03:50。
+﻿生成启动时间为 2018/4/24 20:58:08。
      1>项目“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\SIFT_RobHess.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\program\vs\VC\bin\CL.exe /c /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\src" /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt src\match.c
+         D:\program\vs\VC\bin\CL.exe /c /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\src" /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt include\getpsnr.cpp
+         getpsnr.cpp
+         D:\program\vs\VC\bin\CL.exe /c /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\src" /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt src\getopt.c src\imgfeatures.c src\kdtree.c src\match.c src\minpq.c src\sift.c src\utils.c src\xform.c
+         xform.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\xform.c(117): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+         utils.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\utils.c(301): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+         sift.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(134): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(253): warning C4101: “sig_total”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(253): warning C4101: “sig_prev”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(401): warning C4554: “<<”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(404): warning C4554: “<<”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(1157): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(1282): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+         minpq.c
          match.c
-     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(125): warning C4101: “xformed2”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(46): warning C4101: “feat3”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(51): warning C4101: “n3”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(131): warning C4101: “xformed2”: 未引用的局部变量
+         kdtree.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\kdtree.c(567): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+         imgfeatures.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\imgfeatures.c(377): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\imgfeatures.c(379): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\imgfeatures.c(381): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\imgfeatures.c(383): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+         getopt.c
+         正在生成代码...
        Link:
          D:\program\vs\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.exe" /INCREMENTAL /NOLOGO "glib-2.0.lib" "gtk-win32-2.0.lib" "gdk-win32-2.0.lib" "gobject-2.0.lib" "gdk_pixbuf-2.0.lib" "gthread-2.0.lib" "gmodule-2.0.lib" "pango-1.0.lib" intl.lib opencv_objdetect2413.lib opencv_ts2413.lib opencv_video2413.lib opencv_nonfree2413.lib opencv_ocl2413.lib opencv_photo2413.lib opencv_stitching2413.lib opencv_superres2413.lib opencv_videostab2413.lib opencv_calib3d2413.lib opencv_contrib2413.lib opencv_core2413.lib opencv_features2d2413.lib opencv_flann2413.lib opencv_gpu2413.lib opencv_highgui2413.lib opencv_imgproc2413.lib opencv_legacy2413.lib opencv_ml2413.lib opencv_ml2413d.lib opencv_calib3d2413d.lib opencv_contrib2413d.lib opencv_core2413d.lib opencv_features2d2413d.lib opencv_flann2413d.lib opencv_gpu2413d.lib opencv_highgui2413d.lib opencv_imgproc2413d.lib opencv_legacy2413d.lib opencv_objdetect2413d.lib opencv_ts2413d.lib opencv_video2413d.lib opencv_nonfree2413d.lib opencv_ocl2413d.lib opencv_photo2413d.lib opencv_stitching2413d.lib opencv_superres2413d.lib opencv_videostab2413d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.lib" /MACHINE:X86 Debug\getpsnr.obj
          Debug\getopt.obj
@@ -14,9 +40,10 @@
          Debug\sift.obj
          Debug\utils.obj
          Debug\xform.obj
+         LINK : 没有找到 E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.exe 或上一个增量链接没有生成它；正在执行完全链接
          SIFT_RobHess.vcxproj -> E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.exe
      1>已完成生成项目“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\SIFT_RobHess.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:03.67
+已用时间 00:00:05.24

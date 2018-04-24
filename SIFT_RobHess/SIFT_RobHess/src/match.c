@@ -24,6 +24,11 @@
 #include <math.h> 
 #include <getpsnr.h>
 #include<time.h>
+<<<<<<< HEAD
+=======
+#include <stdio.h>     
+#include <unistd.h>  
+>>>>>>> parent of e2d225b... PCAé™ç»´æˆ64ç»´å¯¼å‡ºtxt
 //using namespace cv;cÓïÑÔÃ»ÓĞÃüÃû¿Õ¼ä£¿
 
 /* the maximum number of keypoint NN candidates to check during BBF search */
@@ -60,6 +65,7 @@ int main( int argc, char** argv )
   if( ! img2 )
     fatal_error( "unable to load image from %s", argv[2] );
   stacked = stack_imgs( img1, img2 );
+<<<<<<< HEAD
   n1 = 116; n2 = 95;//ÌØÕ÷µãÊıÁ¿ 
   ////¼ì²âÌØÕ÷µã
   //fprintf( stderr, "Finding features in %s...\n", argv[1] );
@@ -87,6 +93,55 @@ int main( int argc, char** argv )
   char savepath22[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2pca.txt";
   import_features(savepath11,1,&feat1);
   import_features(savepath22,1, &feat2);
+=======
+  //¼ì²âÌØÕ÷µã
+  fprintf( stderr, "Finding features in %s...\n", argv[1] );
+  IplImage* down1 = cvCreateImage(cvSize(img1->width / 2, img1->height / 2), img1->depth, img1->nChannels);
+  cvPyrDown(img1, down1, 7);//filter=7 Ä¿Ç°Ö»Ö§³ÖCV_GAUSSIAN_5x5
+  n1 = sift_features( img1, &feat1 );//µÚ¶ş¸ö²ÎÊıÊÇÖ¸ÕëµÄµØÖ·
+  n3 = sift_features(down1, &feat3);//ÏÂ²ÉÑùµÄ¼ì²âÌØÕ÷µã
+  fprintf( stderr, "Finding features in %s...\n", argv[2] );
+  n2 = sift_features( img2, &feat2 );
+  //½èÓÃsiftfeatÖĞµÄ¼¸¾ä»­ÌØÕ÷µã
+  if (display)
+  {
+	
+	  draw_features(img1, feat1, n1);
+	  draw_features(img2, feat2, n2);
+	  display_big_img(img1, argv[1]);
+	  display_big_img(img2, argv[2]);
+	  cvShowImage("downsample", down1);
+	 
+	  fprintf(stderr, "Found %d features in img1.\n", n1);
+	  fprintf(stderr, "Found %d features in img2.\n", n2);
+	  //cvWaitKey(0);
+  }
+  /*ÀûÓÃPCA¶ÔÃèÊö×Ó½øĞĞ½µÎ¬
+  feat1,feat2ÊÇÖ¸Ïòstruct featureµÄÖ¸Õë £¬feature½á¹¹ÌåÖĞ°üº¬ÁËÒ»¸ö128Î¬µÄdoubleÊı×é
+  µ«Ò»·ùÍ¼ÏñÉÏÇ§¸öÌØÕ÷µã£¬ËüÃÇµÄÃèÊö×Ó¶¼´æ·ÅÔÚÄÄÀï
+  °Ñ128Î¬Êı¾İÄÃ³öÀ´½µÎ¬»¹ÊÇÖ±½Ó¶Ôfeature½á¹¹½µÎ¬?
+  Ò»ÖÖË¼Â·ÊÇ¶ÔÃèÊö×Ó½µÎ¬£¬Ò»ÖÖÊÇ¶ÔÌØÕ÷µã½µÎ¬
+  »Ø¸´u010890209£ºÔ´ÂëÀï¾ÍÓĞ½«ÌØÕ÷ÃèÊöµ¼³öµ½ÎÄ¼şµÄº¯Êı£ºexport_features
+  ÏÈµ¼³ö£¬PCAºóÔÙµ¼Èë£¬ÒòÎªÖ®ºóµÄkdÊ÷µÄ¹¹½¨ÊÇ¶Ôfeat²Ù×÷µÄ
+  */
+  //char* savepath = new char[100];
+  char savepath1[80]="E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1.txt";
+  char savepath2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2.txt";
+  //cÓïÑÔÖĞ\ÊÇ×ªÒå×Ö·û£¬ËùÒÔ×îºÃÓÃ\\
+  //_getcwd(savepath1, sizeof(savepath));//»ñÈ¡µ±Ç°Â·¾¶£¬½«Â·¾¶ÓÃfopen´ò¿ª£¬·µ»Øfile
+  export_features(savepath1, feat1, n1);//±£´æµÄ¸ñÊ½È¡¾öÓÚ feat[0].type;
+  export_features(savepath2, feat2, n2);//Ó¦¸Ã¾ÍÊÇ°´ÕÕlowe¸ñÊ½±£´æµÄ
+  //µ¼³öºóÔÙPCA·ÖÎöÔÙµ¼Èë£¬¼ÆËãºÄÊ±Ö»Ğè¼ÆËã±È½ÏÆ¥ÅäÊ±¼ä£¬²»Ëãµ¼Èëµ¼³öµÄÊ±¼ä
+  
+  import_features(savepath1, 1, feat1);//1´ú±íLowe¸ñÊ½
+  import_features(savepath2, 1, feat2);
+  char savepath11[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1pca.txt";
+  char savepath22[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2pca.txt";
+  export_features(savepath11, feat1, n1);//±£´æµÄ¸ñÊ½È¡¾öÓÚ feat[0].type;
+  export_features(savepath22, feat2, n2);//Ó¦¸Ã¾ÍÊÇ°´ÕÕlowe¸ñÊ½±£´æµÄ
+
+  
+>>>>>>> parent of e2d225b... PCAé™ç»´æˆ64ç»´å¯¼å‡ºtxt
 
   fprintf( stderr, "Building kd tree...\n" );
   kd_root = kdtree_build( feat2, n2 );//Ö»¶ÔÍ¼2¹¹ÔìkdÊ÷

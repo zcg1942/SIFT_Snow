@@ -458,6 +458,39 @@ static int import_lowe_features( char* filename, struct feature** features )
 	    }
 	  f[i].descr[j] = dv;
 	}
+<<<<<<< HEAD
+=======
+	  CvMat *Vector1;
+	     CvMat *AvgVector;
+	      CvMat *EigenValue_Row;
+	      CvMat *EigenVector;
+		  CvMat *result;
+	  Vector1 = cvCreateMat(8, 16, CV_32FC1);
+	      cvSetData(Vector1, f[i].descr, Vector1->step);  //¸øvector1¸³Öµ£¨Ñù±¾¾ØÕó£©
+	      AvgVector = cvCreateMat(1, 16, CV_32FC1);  //Ã¿ÁĞ¾ùÖµ£¬ÏòÁ¿
+		  //¼ÆËãĞ­·½²îA=C'*C/n£¬´óĞ¡Îªn*n£¬nÊÇ¾ØÕóÔªËØ¸öÊı
+		  //Ğ­·½²îÊÇÊµ¶Ô³Æ¾ØÕó£¬¹²ÓĞn¸öÌØÕ÷ÖµÌØÕ÷ÏòÁ¿
+	      EigenValue_Row = cvCreateMat(1, 8, CV_32FC1);  //Ã¿¸öÊı±íÊ¾Ò»¸öÌØÕ÷Öµ£¬5ÊÇÑ¡È¡µÄÑù±¾ÊıºÍÎ¬¶ÈÖĞ½ÏĞ¡µÄÊı
+	      EigenVector = cvCreateMat(8, 16, CV_32FC1);  //Ã¿Ò»ĞĞ±íÊ¾Ò»¸öÌØÕ÷ÏòÁ¿£¬5ÊÇÑ¡È¡µÄÑù±¾ÊıºÍÎ¬¶ÈÖĞ½ÏĞ¡µÄÊı
+		  result = cvCreateMat(8, 8, CV_32FC1);
+		      //PCAµÄÊµÏÖº¯Êı
+		       cvCalcPCA(Vector1, AvgVector, EigenValue_Row, EigenVector, CV_PCA_DATA_AS_ROW);
+			   cvProjectPCA(Vector1, AvgVector, EigenVector, result);
+			   for (int ii = 0; ii <(*result).cols; ii++)//·ÀÖ¹ºÍÌØÕ÷µã±éÀúµÄiÖØºÏ
+			   {
+				   for (int j = 0; j <(*result).rows;j++)
+					   f[i].descr[ii*(*result).cols+j] = cvGetReal2D(result, ii, j);
+			   }
+		   
+		  //PCA pca(DataMat, noArray(), CV_PCA_DATA_AS_ROW);
+	  //-----------------------------OpenCVÖĞµÄPCA--------------------------------//  
+	  //CvMat *pca_input = cvCreateMat(num, dim, CV_32FC1);               // ÊäÈë  
+	  //CvMat *pca_avg = cvCreateMat(1, dim, CV_32FC1);                 // Æ½¾ùÖµ   
+	  //CvMat *pca_eigenvalue = cvCreateMat(1, std::min(num, dim), CV_32FC1);  // ÌØÕ÷Öµ    
+	  //CvMat *pca_eigenvector = cvCreateMat(std::min(num, dim), dim, CV_32FC1);// ÌØÕ÷ÏòÁ¿  
+	  //CvMat *pca_eigenvector_T = cvCreateMat(dim, std::min(num, dim), CV_32FC1); // ÌØÕ÷ÏòÁ¿  
+	  //CvMat *pca_output = cvCreateMat(num, pca_dim, CV_32FC1);            // Êä³ö  
+>>>>>>> parent of e2d225b... PCAé™ç»´æˆ64ç»´å¯¼å‡ºtxt
 
       f[i].a = f[i].b = f[i].c = 0;
       f[i].category = 0;
