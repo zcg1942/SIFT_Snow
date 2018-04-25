@@ -446,6 +446,7 @@ static int import_lowe_features( char* filename, struct feature** features )
       f[i].type = FEATURE_LOWE;
 
       /* read descriptor */
+	  d = 64;
       for( j = 0; j < d; j++ )
 	{
 	  if( ! fscanf( file, " %lf ", &dv ) )

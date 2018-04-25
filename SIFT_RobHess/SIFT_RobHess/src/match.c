@@ -36,52 +36,58 @@ int display = 1;
 
 
 
-int main( int argc, char** argv )
+int main(int argc, char** argv)
 {
 	//计时
 	clock_t start, finish;
 	double totaltime;
 	start = clock();
-  IplImage* img1, * img2, * stacked;
-  struct feature* feat1, * feat2, * feat,* feat3;
-  struct feature** nbrs;
-  struct kd_node* kd_root;
-  CvPoint pt1, pt2;
-  double d0, d1;
-  int n1, n2,n3, k, i, m = 0;
-  
-  if( argc != 3 )
-    fatal_error( "usage: %s <img1> <img2>", argv[0] );
-  //加载图像
-  img1 = cvLoadImage( argv[1], 1 );
-  if( ! img1 )
-    fatal_error( "unable to load image from %s", argv[1] );
-  img2 = cvLoadImage( argv[2], 1 );
-  if( ! img2 )
-    fatal_error( "unable to load image from %s", argv[2] );
-  stacked = stack_imgs( img1, img2 );
-  //检测特征点
-  fprintf( stderr, "Finding features in %s...\n", argv[1] );
-  IplImage* down1 = cvCreateImage(cvSize(img1->width / 2, img1->height / 2), img1->depth, img1->nChannels);
-  cvPyrDown(img1, down1, 7);//filter=7 目前只支持CV_GAUSSIAN_5x5
-  n1 = sift_features( img1, &feat1 );
-  n3 = sift_features(down1, &feat3);//下采样的检测特征点
-  fprintf( stderr, "Finding features in %s...\n", argv[2] );
-  n2 = sift_features( img2, &feat2 );
-  //借用siftfeat中的几句画特征点
-  if (display)
-  {
-	
-	  draw_features(img1, feat1, n1);
-	  draw_features(img2, feat2, n2);
-	  display_big_img(img1, argv[1]);
-	  display_big_img(img2, argv[2]);
-	  cvShowImage("downsample", down1);
-	 
-	  fprintf(stderr, "Found %d features in img1.\n", n1);
-	  fprintf(stderr, "Found %d features in img2.\n", n2);
-	  //cvWaitKey(0);
-  }
+	IplImage* img1, *img2, *stacked;
+	struct feature* feat1, *feat2, *feat, *feat3;
+	struct feature** nbrs;
+	struct kd_node* kd_root;
+	CvPoint pt1, pt2;
+	double d0, d1;
+	int n1, n2, n3, k, i, m = 0;
+
+	if (argc != 3)
+		fatal_error("usage: %s <img1> <img2>", argv[0]);
+	//加载图像
+	img1 = cvLoadImage(argv[1], 1);
+	if (!img1)
+		fatal_error("unable to load image from %s", argv[1]);
+	img2 = cvLoadImage(argv[2], 1);
+	if (!img2)
+		fatal_error("unable to load image from %s", argv[2]);
+	stacked = stack_imgs(img1, img2);
+	//检测特征点
+	n1 = 7875; n2 = 7333;
+	//fprintf( stderr, "Finding features in %s...\n", argv[1] );
+	//IplImage* down1 = cvCreateImage(cvSize(img1->width / 2, img1->height / 2), img1->depth, img1->nChannels);
+	//cvPyrDown(img1, down1, 7);//filter=7 目前只支持CV_GAUSSIAN_5x5
+	//n1 = sift_features( img1, &feat1 );
+	//n3 = sift_features(down1, &feat3);//下采样的检测特征点
+	//fprintf( stderr, "Finding features in %s...\n", argv[2] );
+	//n2 = sift_features( img2, &feat2 );
+	//借用siftfeat中的几句画特征点
+	//if (display)
+	//{
+
+	// draw_features(img1, feat1, n1);
+	// draw_features(img2, feat2, n2);
+	// display_big_img(img1, argv[1]);
+	// display_big_img(img2, argv[2]);
+	// cvShowImage("downsample", down1);
+	//
+	// fprintf(stderr, "Found %d features in img1.\n", n1);
+	// fprintf(stderr, "Found %d features in img2.\n", n2);
+	// //cvWaitKey(0);
+	//}
+	char path1[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat_pca1.txt";
+	char path2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat_pca2.txt";
+	import_features(path1, 1, &feat1);
+	import_features(path2, 1, &feat2);
+
   fprintf( stderr, "Building kd tree...\n" );
   kd_root = kdtree_build( feat2, n2 );//只对图2构造kd树
   for( i = 0; i < n1; i++ )//对图1的特征点遍历，在图2的kd树中找knn
