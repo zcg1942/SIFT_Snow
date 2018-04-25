@@ -1,0 +1,43 @@
+﻿生成启动时间为 2018/4/25 11:08:20。
+     1>项目“E:\Local Repositories\SIFT_Snow\IMport_PCA\IMport_PCA\IMport_PCA.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>ClCompile:
+         D:\program\vs\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt dspfeat.c getopt.c imgfeatures.c kdtree.c match.c match_num.c minpq.c sift.c siftfeat.c utils.c xform.c
+         xform.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\xform.c(117): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+         utils.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\utils.c(15): fatal error C1083: 无法打开包括文件: “gdk/gdk.h”: No such file or directory
+         siftfeat.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\siftfeat.c(24): fatal error C1083: 无法打开包括文件: “unistd.h”: No such file or directory
+         sift.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\sift.c(134): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\import_pca\import_pca\sift.c(253): warning C4101: “sig_total”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\import_pca\import_pca\sift.c(253): warning C4101: “sig_prev”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\import_pca\import_pca\sift.c(401): warning C4554: “<<”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+     1>e:\local repositories\sift_snow\import_pca\import_pca\sift.c(404): warning C4554: “<<”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+     1>e:\local repositories\sift_snow\import_pca\import_pca\sift.c(1157): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\import_pca\import_pca\sift.c(1281): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+         minpq.c
+         match_num.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\match_num.c(44): warning C4101: “n”: 未引用的局部变量
+         match.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\match.c(223): warning C4013: “psnr”未定义；假设外部返回 int
+     1>e:\local repositories\sift_snow\import_pca\import_pca\match.c(160): warning C4101: “xformed2”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\import_pca\import_pca\match.c(250): error C2371: “psnr”: 重定义；不同的基类型
+         kdtree.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\kdtree.c(567): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+         imgfeatures.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\imgfeatures.c(377): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\import_pca\import_pca\imgfeatures.c(379): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\import_pca\import_pca\imgfeatures.c(381): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\import_pca\import_pca\imgfeatures.c(383): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
+         getopt.c
+         dspfeat.c
+     1>e:\local repositories\sift_snow\import_pca\import_pca\dspfeat.c(15): fatal error C1083: 无法打开包括文件: “unistd.h”: No such file or directory
+         正在生成代码...
+     1>e:\local repositories\sift_snow\import_pca\import_pca\match_num.c(78): error C4700: 使用了未初始化的局部变量“num_matches”
+     1>e:\local repositories\sift_snow\import_pca\import_pca\match_num.c(56): warning C4716: “process_image”: 必须返回一个值
+     1>已完成生成项目“E:\Local Repositories\SIFT_Snow\IMport_PCA\IMport_PCA\IMport_PCA.vcxproj”(Rebuild 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:04.29
