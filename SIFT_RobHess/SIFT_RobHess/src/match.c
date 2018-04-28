@@ -83,8 +83,8 @@ int main(int argc, char** argv)
 	// fprintf(stderr, "Found %d features in img2.\n", n2);
 	// //cvWaitKey(0);
 	//}
-	char path1[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat_pca1.txt";
-	char path2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat_pca2.txt";
+	char path1[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat1.txt";
+	char path2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat2.txt";
 	import_features(path1, 1, &feat1);
 	import_features(path2, 1, &feat2);
 

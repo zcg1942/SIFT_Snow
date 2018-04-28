@@ -65,8 +65,8 @@ struct feature
   double scl;                    /**< scale of a Lowe-style feature */
   double ori;                    /**< orientation of a Lowe-style feature */
   int d;                         /**< descriptor length */
- /* double descr[FEATURE_MAX_D]; */  /**< descriptor */
-  double descr[64];
+ double descr[FEATURE_MAX_D];   /**< descriptor */
+ /* double descr[64];*/
   int type;                      /**< feature type, OXFD or LOWE */
   int category;                  /**< all-purpose feature category */
   struct feature* fwd_match;     /**< matching feature from forward image */

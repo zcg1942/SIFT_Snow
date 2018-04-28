@@ -1,4 +1,4 @@
-﻿生成启动时间为 2018/4/25 11:44:06。
+﻿生成启动时间为 2018/4/28 10:16:14。
      1>项目“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\SIFT_RobHess.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          D:\program\vs\VC\bin\CL.exe /c /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\src" /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt include\getpsnr.cpp
@@ -45,4 +45,4 @@
 
 生成成功。
 
-已用时间 00:00:04.28
+已用时间 00:00:08.03
