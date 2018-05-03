@@ -72,8 +72,8 @@ struct feature
   struct feature* fwd_match;     /**< matching feature from forward image */
   struct feature* bck_match;     /**< matching feature from backmward image */
   struct feature* mdl_match;     /**< matching feature from model */
-  CvPoint2D64f img_pt;           /**< location in image */
-  CvPoint2D64f mdl_pt;           /**< location in model */
+  CvPoint2D64f img_pt;           /**< location in image */  /**< location in image */ //特征点的坐标,等于(x,y) 
+  CvPoint2D64f mdl_pt;           /**< location in model */ /**< location in model */ //当匹配类型是mdl_match时用到  
   void* feature_data;            /**< user-definable data */
 };
 

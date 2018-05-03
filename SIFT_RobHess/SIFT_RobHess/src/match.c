@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 	img2 = cvLoadImage(argv[2], 1);
 	if (!img2)
 		fatal_error("unable to load image from %s", argv[2]);
-	stacked = stack_imgs(img1, img2);
+	stacked = stack_imgs(img1, img2);//得到宽度取二者最大，高度取二者高度之和的拼接图像，img1在上面
 	//检测特征点
 	n1 = 7875; n2 = 7333;
 	//fprintf( stderr, "Finding features in %s...\n", argv[1] );
