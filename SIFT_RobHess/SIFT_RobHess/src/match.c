@@ -45,6 +45,8 @@ int main(int argc, char** argv)
 	IplImage* img1, *img2, *stacked;
 	struct feature* feat1, *feat2, *feat, *feat3;
 	struct feature** nbrs;
+	//struct feature** import_feat1=NULL, **import_feat2=NULL;
+
 	struct kd_node* kd_root;
 	CvPoint pt1, pt2;
 	double d0, d1;
@@ -85,18 +87,20 @@ int main(int argc, char** argv)
 	//}
 	char path1[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat1.txt";
 	char path2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat2.txt";
-	import_features(path1, 1, &feat1);
+	import_features(path1, 1, &feat1);//第三个参数是指针的指针
 	import_features(path2, 1, &feat2);
-
+	/*feat1 = *import_feat1;
+	feat2 = *import_feat2;
+*/
   fprintf( stderr, "Building kd tree...\n" );
   kd_root = kdtree_build( feat2, n2 );//只对图2构造kd树
   for( i = 0; i < n1; i++ )//对图1的特征点遍历，在图2的kd树中找knn
     {
-      feat = feat1 + i;
+      feat = feat1 + i;//指针的加法
       k = kdtree_bbf_knn( kd_root, feat, 2, &nbrs, KDTREE_BBF_MAX_NN_CHKS );//近邻数是2
       if( k == 2 )//返回了两个nbars
 	{
-	  d0 = descr_dist_sq( feat, nbrs[0] );
+	  d0 = descr_dist_sq( feat, nbrs[0] );//nbr是对每一个feat1中的特征点在kd树中找到的距离前2的点
 	  d1 = descr_dist_sq( feat, nbrs[1] );
 	  if( d0 < d1 * NN_SQ_DIST_RATIO_THR )//阈值为0.49
 	    {

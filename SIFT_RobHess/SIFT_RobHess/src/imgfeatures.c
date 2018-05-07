@@ -170,7 +170,7 @@ double descr_dist_sq( struct feature* f1, struct feature* f2 )
   for( i = 0; i < d; i++ )
     {
       diff = descr1[i] - descr2[i];//描述子每一维的差
-      dsq += diff*diff;
+      dsq += diff*diff;//每一维的差的平方和
     }
   return dsq;
 }
@@ -399,7 +399,8 @@ static void draw_oxfd_feature( IplImage* img, struct feature* feat,
 */
 static int import_lowe_features( char* filename, struct feature** features )
 {
-  struct feature* f;
+	//静态函数，不能被其他文件使用，所以其他文件也可以有相同的函数名
+  struct feature* f;//第一个特征点的指针
   int i, j, n, d;
   double x, y, s, o, dv;
   FILE* file;
@@ -427,7 +428,7 @@ static int import_lowe_features( char* filename, struct feature** features )
       return -1;
     }
 
-  f = calloc( n, sizeof(struct feature) );
+  f = calloc( n, sizeof(struct feature) );//在内存的动态存储区中分配n个长度为size的连续空间，函数返回一个指向分配起始地址的指针
   for( i = 0; i < n; i++ )
     {
       /* read affine region parameters */
@@ -474,7 +475,7 @@ static int import_lowe_features( char* filename, struct feature** features )
       return -1;
     }
 
-  *features = f;
+  *features = f;//相当于feature=&f??把features复数指向f //首地址赋给*features 
   return n;
 }
 
