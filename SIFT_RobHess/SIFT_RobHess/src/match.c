@@ -39,8 +39,8 @@ int display = 1;
 int main(int argc, char** argv)
 {
 	//计时
-	clock_t start, finish;
-	double totaltime;
+	clock_t start, finish,import;
+	double totaltime,importTime;
 	start = clock();
 	IplImage* img1, *img2, *stacked;
 	struct feature* feat1, *feat2, *feat, *feat3;
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
 	char path2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat2.txt";
 	import_features(path1, 1, &feat1);//第三个参数是指针的指针
 	import_features(path2, 1, &feat2);
-	finish = clock();
+	import= clock();
 	/*feat1 = *import_feat1;
 	feat2 = *import_feat2;
 */
@@ -201,9 +201,11 @@ int main(int argc, char** argv)
 	cvNamedWindow( "Xformed1", 1 );
 	cvShowImage( "Xformed1", xformed1);
 	//cvShowImage("Xformed2", xformed2);
-	
+	finish = clock();
 	totaltime = (double)(finish - start) / CLOCKS_PER_SEC;
+	importTime = (double)(import - start) / CLOCKS_PER_SEC;
 	printf("\n此程序的运行时间为%f", totaltime);
+	printf("\n此程序的导入Lowe特征点文件时间为%f", importTime);
 	printf("\n");
 	cvWaitKey( 0 );
 	cvReleaseImage( &xformed1 );
