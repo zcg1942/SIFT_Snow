@@ -75,7 +75,7 @@ int main(int argc, char** argv)
 	//if (display)
 	//{
 
-	// draw_features(img1, feat1, n1);
+	//draw_features(img1, feat1, n1);
 	// draw_features(img2, feat2, n2);
 	// display_big_img(img1, argv[1]);
 	// display_big_img(img2, argv[2]);
@@ -89,6 +89,7 @@ int main(int argc, char** argv)
 	char path2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\boat2.txt";
 	import_features(path1, 1, &feat1);//第三个参数是指针的指针
 	import_features(path2, 1, &feat2);
+	finish = clock();
 	/*feat1 = *import_feat1;
 	feat2 = *import_feat2;
 */
@@ -200,7 +201,7 @@ int main(int argc, char** argv)
 	cvNamedWindow( "Xformed1", 1 );
 	cvShowImage( "Xformed1", xformed1);
 	//cvShowImage("Xformed2", xformed2);
-	finish = clock();
+	
 	totaltime = (double)(finish - start) / CLOCKS_PER_SEC;
 	printf("\n此程序的运行时间为%f", totaltime);
 	printf("\n");

@@ -432,7 +432,7 @@ static int import_lowe_features( char* filename, struct feature** features )
   for( i = 0; i < n; i++ )
     {
       /* read affine region parameters */
-      if( fscanf( file, " %lf %lf %lf %lf ", &y, &x, &s, &o ) != 4 )
+      if( fscanf( file, " %lf %lf %lf %lf ", &y, &x, &s, &o ) != 4 )//%lf是double类型输入 fscanf返回读取的长度
 	{
 	  fprintf( stderr, "Warning: error reading feature #%d, %s, line %d\n",
 		   i+1, __FILE__, __LINE__ );
@@ -447,7 +447,7 @@ static int import_lowe_features( char* filename, struct feature** features )
       f[i].type = FEATURE_LOWE;
 
       /* read descriptor */
-	  d = 64;
+	  //d = 64;
       for( j = 0; j < d; j++ )
 	{
 	  if( ! fscanf( file, " %lf ", &dv ) )
@@ -476,6 +476,13 @@ static int import_lowe_features( char* filename, struct feature** features )
     }
 
   *features = f;//相当于feature=&f??把features复数指向f //首地址赋给*features 
+
+  //释放特征点数组feat中所有特征点的feature_data成员，因为此成员中的数据在检测完特征点后就没用了  
+  for (i = 0; i < n; i++)
+  {
+	  free((*features)[i].feature_data);
+	  (*features)[i].feature_data = NULL;
+  }
   return n;
 }
 

@@ -92,7 +92,9 @@ int sift_features( IplImage* img, struct feature** feat )
    detected features are stored in the array pointed to by \a feat.
 
    @param img the image in which to detect features
-   @param fea a pointer to an array in which to store detected features
+   @param feat a pointer to an array in which to store detected 
+   feat：存储特征点的数组的指针
+   此数组的内存将在本函数中被分配，使用完后必须在调用出释放：free(*feat)
    @param intvls the number of intervals sampled per octave of scale space
    @param sigma the amount of Gaussian smoothing applied to each image level
      before building the scale space representation for an octave
@@ -154,7 +156,10 @@ int _sift_features( IplImage* img, struct feature** feat, int intvls,
   cvSeqSort( features, (CvCmpFunc)feature_cmp, NULL );
   n = features->total;
   *feat = calloc( n, sizeof(struct feature) );
+  //将序列features中的元素拷贝到数组feat中，返回数组指针给feat  
   *feat = cvCvtSeqToArray( features, *feat, CV_WHOLE_SEQ );
+
+  //释放特征点数组feat中所有特征点的feature_data成员，因为此成员中的数据在检测完特征点后就没用了  
   for( i = 0; i < n; i++ )
     {
       free( (*feat)[i].feature_data );
