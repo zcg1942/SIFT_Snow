@@ -39,8 +39,8 @@ int display = 1;
 int main( int argc, char** argv )
 {
 	//计时
-	clock_t start, finish;
-	double totaltime;
+	clock_t start, finish,detect;
+	double totaltime,detectTime;
 	start = clock();
   IplImage* img1, * img2, * stacked;
   struct feature* feat1, * feat2, * feat,* feat3;
@@ -67,21 +67,23 @@ int main( int argc, char** argv )
   n1 = sift_features( img1, &feat1 );
   n3 = sift_features(down1, &feat3);//下采样的检测特征点
   fprintf( stderr, "Finding features in %s...\n", argv[2] );
-  n2 = sift_features( img2, &feat2 );
+  n2 = sift_features(img2, &feat2);
+  detect = clock();
+
   //借用siftfeat中的几句画特征点
-  if (display)
-  {
+  //if (display)
+  //{
 	
-	  draw_features(img1, feat1, n1);
-	  draw_features(img2, feat2, n2);
-	  display_big_img(img1, argv[1]);
-	  display_big_img(img2, argv[2]);
-	  cvShowImage("downsample", down1);
-	 
-	  fprintf(stderr, "Found %d features in img1.\n", n1);
-	  fprintf(stderr, "Found %d features in img2.\n", n2);
-	  //cvWaitKey(0);
-  }
+	 // draw_features(img1, feat1, n1);
+	 // draw_features(img2, feat2, n2);
+	 // display_big_img(img1, argv[1]);
+	 // display_big_img(img2, argv[2]);
+	 // cvShowImage("downsample", down1);
+	 //
+	 // fprintf(stderr, "Found %d features in img1.\n", n1);
+	 // fprintf(stderr, "Found %d features in img2.\n", n2);
+	 // //cvWaitKey(0);
+  //}
   fprintf( stderr, "Building kd tree...\n" );
   kd_root = kdtree_build( feat2, n2 );//只对图2构造kd树
   for( i = 0; i < n1; i++ )//对图1的特征点遍历，在图2的kd树中找knn
@@ -192,7 +194,9 @@ int main( int argc, char** argv )
 	//cvShowImage("Xformed2", xformed2);
 	finish = clock();
 	totaltime = (double)(finish - start) / CLOCKS_PER_SEC;
+	detectTime = (double)(detect - start) / CLOCKS_PER_SEC;
 	printf("\n此程序的运行时间为%f", totaltime);
+	printf("\n此程序的特征点检测耗时为%f", detectTime);
 	printf("\n");
 	cvWaitKey( 0 );
 	cvReleaseImage( &xformed1 );
