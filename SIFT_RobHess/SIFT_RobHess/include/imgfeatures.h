@@ -46,7 +46,7 @@ enum feature_match_type
 #define FEATURE_LOWE_COLOR CV_RGB(255,0,255)
 
 /** max feature descriptor length */
-#define FEATURE_MAX_D 128
+#define FEATURE_MAX_D 64
 
 
 /**
@@ -66,7 +66,7 @@ struct feature
   double ori;                    /**< orientation of a Lowe-style feature */
   int d;                         /**< descriptor length */
  double descr[FEATURE_MAX_D];   /**< descriptor */
- /* double descr[64];*/
+  //double descr[64];
   int type;                      /**< feature type, OXFD or LOWE */
   int category;                  /**< all-purpose feature category */
   struct feature* fwd_match;     /**< matching feature from forward image */
