@@ -46,7 +46,7 @@ enum feature_match_type
 #define FEATURE_LOWE_COLOR CV_RGB(255,0,255)
 
 /** max feature descriptor length */
-#define FEATURE_MAX_D 64
+#define FEATURE_MAX_D 16// ¸Ä
 
 
 /**
