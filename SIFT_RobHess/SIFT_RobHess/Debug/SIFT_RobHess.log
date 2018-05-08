@@ -1,11 +1,23 @@
-﻿生成启动时间为 2018/5/7 17:31:04。
+﻿生成启动时间为 2018/5/8 11:03:47。
      1>项目“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\SIFT_RobHess.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\program\vs\VC\bin\CL.exe /c /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\src" /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt src\imgfeatures.c src\match.c
+         D:\program\vs\VC\bin\CL.exe /c /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\src" /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt src\imgfeatures.c src\kdtree.c src\match.c src\sift.c src\xform.c
+         xform.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\xform.c(117): warning C4244: “函数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+         sift.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(136): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(258): warning C4101: “sig_total”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(258): warning C4101: “sig_prev”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(406): warning C4554: “<<”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(409): warning C4554: “<<”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(1162): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(1286): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
          match.c
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(46): warning C4101: “feat3”: 未引用的局部变量
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(53): warning C4101: “n3”: 未引用的局部变量
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(136): warning C4101: “xformed2”: 未引用的局部变量
+         kdtree.c
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\kdtree.c(567): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
          imgfeatures.c
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\imgfeatures.c(377): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\imgfeatures.c(379): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
@@ -22,9 +34,14 @@
          Debug\sift.obj
          Debug\utils.obj
          Debug\xform.obj
+         LINK : 没有找到 E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.exe 或上一个增量链接没有生成它；正在执行完全链接
+     1>utils.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“utils.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>minpq.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“minpq.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>getopt.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“getopt.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+     1>getpsnr.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“getpsnr.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
          SIFT_RobHess.vcxproj -> E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.exe
      1>已完成生成项目“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\SIFT_RobHess.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:01.44
+已用时间 00:00:03.67
