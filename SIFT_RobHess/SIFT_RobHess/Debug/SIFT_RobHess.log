@@ -1,4 +1,4 @@
-﻿生成启动时间为 2018/4/28 10:23:29。
+﻿生成启动时间为 2018/5/8 9:47:58。
      1>项目“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\SIFT_RobHess.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          D:\program\vs\VC\bin\CL.exe /c /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\src" /I"E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt src\imgfeatures.c src\kdtree.c src\match.c src\sift.c src\xform.c
@@ -13,7 +13,9 @@
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(1157): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\sift.c(1281): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
          match.c
-     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(160): warning C4101: “xformed2”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(50): warning C4101: “feat3”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(55): warning C4101: “n3”: 未引用的局部变量
+     1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\match.c(162): warning C4101: “xformed2”: 未引用的局部变量
          kdtree.c
      1>e:\local repositories\sift_snow\sift_robhess\sift_robhess\src\kdtree.c(567): warning C4244: “函数”: 从“double”转换到“int”，可能丢失数据
          imgfeatures.c
@@ -32,14 +34,9 @@
          Debug\sift.obj
          Debug\utils.obj
          Debug\xform.obj
-         LINK : 没有找到 E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.exe 或上一个增量链接没有生成它；正在执行完全链接
-     1>utils.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“utils.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-     1>minpq.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“minpq.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-     1>getopt.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“getopt.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-     1>getpsnr.obj : warning LNK4099: 未找到 PDB“vc120.pdb”(使用“getpsnr.obj”或在“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\vc120.pdb”中寻找)；正在链接对象，如同没有调试信息一样
          SIFT_RobHess.vcxproj -> E:\Local Repositories\SIFT_Snow\SIFT_RobHess\Debug\SIFT_RobHess.exe
      1>已完成生成项目“E:\Local Repositories\SIFT_Snow\SIFT_RobHess\SIFT_RobHess\SIFT_RobHess.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:02.88
+已用时间 00:00:02.42

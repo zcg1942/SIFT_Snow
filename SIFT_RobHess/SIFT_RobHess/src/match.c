@@ -72,24 +72,24 @@ int main( int argc, char** argv )
   fprintf( stderr, "Finding features in %s...\n", argv[1] );
   IplImage* down1 = cvCreateImage(cvSize(img1->width / 2, img1->height / 2), img1->depth, img1->nChannels);
   cvPyrDown(img1, down1, 7);//filter=7 目前只支持CV_GAUSSIAN_5x5
-  n1 = sift_features( img1, &feat1 );//第二个参数是指针的地址
-  n3 = sift_features(down1, &feat3);//下采样的检测特征点
+  //n1 = sift_features( img1, &feat1 );//第二个参数是指针的地址
+  //n3 = sift_features(down1, &feat3);//下采样的检测特征点
   fprintf( stderr, "Finding features in %s...\n", argv[2] );
-  n2 = sift_features( img2, &feat2 );
+  //n2 = sift_features( img2, &feat2 );
   //借用siftfeat中的几句画特征点
-  if (display)
-  {
+  //if (display)
+  //{
 	
-	  draw_features(img1, feat1, n1);
-	  draw_features(img2, feat2, n2);
-	  display_big_img(img1, argv[1]);
-	  display_big_img(img2, argv[2]);
-	  cvShowImage("downsample", down1);
-	 
-	  fprintf(stderr, "Found %d features in img1.\n", n1);
-	  fprintf(stderr, "Found %d features in img2.\n", n2);
-	  //cvWaitKey(0);
-  }
+	 // draw_features(img1, feat1, n1);
+	 // draw_features(img2, feat2, n2);
+	 // display_big_img(img1, argv[1]);
+	 // display_big_img(img2, argv[2]);
+	 // cvShowImage("downsample", down1);
+	 //
+	 // fprintf(stderr, "Found %d features in img1.\n", n1);
+	 // fprintf(stderr, "Found %d features in img2.\n", n2);
+	 // //cvWaitKey(0);
+  //}
   /*利用PCA对描述子进行降维
   feat1,feat2是指向struct feature的指针 ，feature结构体中包含了一个128维的double数组
   但一幅图像上千个特征点，它们的描述子都存放在哪里
@@ -103,14 +103,16 @@ int main( int argc, char** argv )
   char savepath2[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2.txt";
   //c语言中\是转义字符，所以最好用\\
   //_getcwd(savepath1, sizeof(savepath));//获取当前路径，将路径用fopen打开，返回file
-  export_features(savepath1, feat1, n1);//保存的格式取决于 feat[0].type;
-  export_features(savepath2, feat2, n2);//应该就是按照lowe格式保存的
+  //export_features(savepath1, feat1, n1);//保存的格式取决于 feat[0].type;
+  //export_features(savepath2, feat2, n2);//应该就是按照lowe格式保存的
   //导出后再PCA分析再导入，计算耗时只需计算比较匹配时间，不算导入导出的时间
   
   import_features(savepath1, 1, &feat1);//1代表Lowe格式
   import_features(savepath2, 1, &feat2);
-  char savepath11[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1pca.txt";
-  char savepath22[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2pca.txt";
+  char savepath11[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat1pca80.txt";
+  char savepath22[80] = "E:\\Local Repositories\\SIFT_Snow\\SIFT_RobHess\\SIFT_RobHess\\feat2pca80.txt";
+  n1 = 7875;
+  n2 = 7333;
   export_features(savepath11, feat1, n1);//保存的格式取决于 feat[0].type;
   export_features(savepath22, feat2, n2);//应该就是按照lowe格式保存的
 

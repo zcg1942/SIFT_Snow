@@ -75,7 +75,7 @@ struct feature
   double ori;                    /**< orientation of a Lowe-style feature */
   int d;                         /**< descriptor length */
   double descr[FEATURE_MAX_D];   /**< descriptor */ /**< descriptor */ //128维的特征描述子，即一个double数组 
-  double descr_pca[64];  //用于存放降维之后的数据
+  double descr_pca[16];  //用于存放降维之后的数据 改
   int type;                      /**< feature type, OXFD or LOWE *///特征点描述子有两种格式
   int pca;
   int category;                  /**< all-purpose feature category */
